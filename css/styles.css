@@ -74,7 +74,7 @@ section {
   text-transform: uppercase;
 }
 /* ====================== Navigation ====================== */
-nav {
+.heading-nav {
   width: 100%;
   height: 80px;
   background-color: #252831;
@@ -125,9 +125,14 @@ nav h1 a {
 }
 /* ====================== Map ====================== */
 #map {
-  height: 400px;
+  height: 350px;
   width: 100%;
   background-color: #ccc;
+}
+
+#map-container {
+  width: 100%;
+  height: 350px;
 }
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
@@ -190,7 +195,7 @@ nav h1 a {
   min-height: 248px;
   min-width: 100%;
 }
-#restaurants-list li h1 {
+#restaurants-list li h2 {
   color: #f18200;
   font-family: Arial, sans-serif;
   font-size: 14pt;
@@ -321,7 +326,7 @@ nav h1 a {
     margin: 0;
     padding: 30px 15px 60px;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-start;
   }
 
   #restaurants-list li {
@@ -331,7 +336,7 @@ nav h1 a {
     align-self: auto;
     width: 32%;
     padding: 0 20px 25px;
-    margin: 0 0 20px 0;
+    margin: 0 1% 20px 0;
   }
   #breadcrumb {
     padding: 10px 40px 16px;
@@ -361,6 +366,11 @@ nav h1 a {
     bottom: 0;
     position: absolute;
     width: 50%;
+  }
+
+  #map-container {
+    width: 100%;
+    height: auto;
   }
 }
 
