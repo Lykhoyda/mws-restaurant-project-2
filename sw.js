@@ -3,14 +3,14 @@ self.addEventListener("install", function(event) {
 });
 var CACHE_NAME = "restaurant-cache";
 var urlsToCache = [
-  "/",
+  "./",
   "./index.html",
   "./restaurant.html",
   "./css/styles.css",
   "./js/dbhelper.js",
   "./js/main.js",
   "./js/restaurant_info.js",
-  "./data/restaurants.json",
+  "./lib/idb.js",
   "./img/1.jpg",
   "./img/2.jpg",
   "./img/3.jpg",
@@ -23,27 +23,44 @@ var urlsToCache = [
   "./img/10.jpg"
 ];
 
-self.addEventListener("install", function(event) {
+self.addEventListener("install", event => {
   // Perform install steps
   event.waitUntil(
-    caches.open(CACHE_NAME).then(function(cache) {
-      console.log("Opened cache");
+    caches.open(CACHE_NAME).then(cache => {
       return cache.addAll(urlsToCache);
     })
   );
 });
 
 self.addEventListener("activate", event => {
-  event.waitUntil(self.clients.claim());
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(currentCacheName => {
+          if (currentCacheName !== CACHE_NAME) {
+            caches.delete(currentCacheName);
+          }
+        })
+      );
+    })
+  );
 });
 
 self.addEventListener("fetch", event => {
   event.respondWith(
     caches
-      .match(event.request, { ignoreSearch: true })
-      .then(response => {
-        return response || fetch(event.request);
+      .open(CACHE_NAME)
+      .then(cache => {
+        return cache.match(event.request).then(response => {
+          return (
+            response ||
+            fetch(event.request).then(response => {
+              cache.put(event.request, response.clone());
+              return response;
+            })
+          );
+        });
       })
-      .catch(err => console.log(err, event.request))
+      .catch(err => console.log("Error: Service worker fetch failed: ", err))
   );
 });
