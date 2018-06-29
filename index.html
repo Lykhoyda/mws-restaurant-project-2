@@ -4,10 +4,9 @@
 <head>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
-  <link rel="stylesheet" href="css/styles.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#3397db" />
+  <link rel="stylesheet" href="css/styles.css">
   <link rel="manifest" href="/manifest.json">
   <title>Restaurant Reviews</title>
 </head>
@@ -39,18 +38,8 @@
     </section>
   </main>
   <!-- Service Worker Registration -->
+  <script type="application/javascript" charset="utf-8" src="js/swRegister.js"></script>
   <script type="application/javascript" charset="utf-8" src="lib/idb.js"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('sw.js').then(function (registration) {
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }, function (err) {
-          console.log('ServiceWorker registration failed: ', err);
-        });
-      });
-    }
-  </script>
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9PuhdB3aOMEcfVikptPqg7h1JLC-JFQE&libraries=places&callback=initMap"></script>
